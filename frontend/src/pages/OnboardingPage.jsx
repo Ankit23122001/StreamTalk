@@ -37,9 +37,8 @@ const OnboardingPage = () => {
     }
 
     const handleRandomAvatar = () => {
-        const idx = Math.floor(Math.random() * 100) + 1; // 1-100 included
-        const randomAvatar = `https://avatar.iran.liara.run/public/${idx}.png`;
-
+        const idx = Math.floor(Math.random() * 100) + 1;
+        const randomAvatar = `https://api.dicebear.com/7.x/pixel-art/png?seed=${idx}`;
         setFormState({ ...formState, profilePic: randomAvatar });
         toast.success("Random profile picture generated!");
     };
@@ -61,6 +60,7 @@ const OnboardingPage = () => {
                                         src={formState.profilePic}
                                         alt="Profile Preview"
                                         className="w-full h-full object-cover"
+                                        onError={e => { e.target.onerror = null; e.target.src = "/assets/default-avatar.png"; }}
                                     />
                                 ) : (
                                     <div className="flex items-center justify-center h-full">
